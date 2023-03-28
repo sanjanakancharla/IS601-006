@@ -52,14 +52,12 @@ class BurgerMachine:
     Topping(name="Cheese", quantity=10, cost=.25), Topping(name="Ketchup", quantity=10, cost=.25),
      Topping(name="Mayo", quantity=10, cost=.25), Topping(name="Mustard", quantity=10, cost=.25),Topping(name="BBQ", quantity=10, cost=.25)] 
 
-
     # variables
     remaining_uses = USES_UNTIL_CLEANING
     remaining_patties = MAX_PATTIES
     remaining_toppings = MAX_TOPPINGS
     total_sales = 0
     total_burgers = 0
-
     inprogress_burger = []
     currently_selecting = STAGE.Bun
 
@@ -155,7 +153,10 @@ class BurgerMachine:
 
     def calculate_cost(self):
         # TODO add the calculation expression/logic for the inprogress_burger
-        return 10000
+        cost = 0
+        for usable in self.inprogress_burger:
+            cost += usable.cost
+        return cost
 
     def run(self):
         try:
@@ -164,7 +165,7 @@ class BurgerMachine:
                 self.handle_bun(bun)
                 self.print_current_burger()
             elif self.currently_selecting == STAGE.Patty:
-                patty = input(f"Would type of patty would you like {', '.join(list(map(lambda f:f.name.lower(), filter(lambda f: f.in_stock(), self.patties))))}? Or type next.\n")
+                patty = input(f"What type of patty would you like {', '.join(list(map(lambda f:f.name.lower(), filter(lambda f: f.in_stock(), self.patties))))}? Or type next.\n")
                 self.handle_patty(patty)
                 self.print_current_burger()
             elif self.currently_selecting == STAGE.Toppings:
@@ -173,9 +174,10 @@ class BurgerMachine:
                 self.print_current_burger()
             elif self.currently_selecting == STAGE.Pay:
                 expected = self.calculate_cost()
+                expected = "{:,}".format(expected)
                 # show expected value as currency format
                 # require total to be entered as currency format
-                total = input(f"Your total is {expected}, please enter the exact value.\n")
+                total = input(f"Your total is $ {expected}, please enter the exact value.\n")
                 self.handle_pay(expected, total)
                 
                 choice = input("What would you like to do? (order or quit)\n")
@@ -188,18 +190,44 @@ class BurgerMachine:
             # quit
             print("Quitting the burger machine")
             sys.exit()
+
+            #UCID:SK3298 Date: 03-27-23
         # handle OutOfStockException
+        except OutOfStockException:
             # show an appropriate message of what stage/category was out of stock
+            print(f"{self.inprogress_burger[-1]} is out of stock at stage {self.currently_selecting.name}")
+    
+            #UCID:SK3298 Date: 03-27-23
         # handle NeedsCleaningException
+        except NeedsCleaningException:
             # prompt user to type "clean" to trigger clean_machine()
             # any other input is ignored
             # print a message whether or not the machine was cleaned
+            prompt = input("Please clean the machine by entering 'clean'")
+            if prompt.lower() == "clean":
+                self.clean_machine()
+                print("Machine was cleaned. Your'e good to go")
+            else:
+                print("Machine was not cleaned.No food!! Hygiene comes first!")
+
+            #UCID:SK3298 Date: 03-27-23
         # handle InvalidChoiceException
+        except InvalidChoiceException:
             # show an appropriate message of what stage/category was the invalid choice was in
-        # handle ExceededRemainingChoicesException
+            print(f"Invalid choice of {self.currently_selecting.name}")
+
+            #UCID:SK3298 Date: 03-27-23
+        # handle ExceededRemainingChoicesException 
+        except ExceededRemainingChoicesException:
             # show an appropriate message of which stage/category was exceeded
             # move to the next stage/category
+            print(f"Exceeded 3 choice limit of {self.currently_selecting.name}s. Moving on to next Stage")
+            self.currently_selecting = STAGE(self.currently_selecting.value + 1)
+                  
+            #UCID:SK3298 Date: 03-27-23
         # handle InvalidPaymentException
+        except InvalidPaymentException:
+            print("Please enter exact value! NO CHANGE!!")
             # show an appropriate message
         except:
             # this is a default catch all, follow the steps above
