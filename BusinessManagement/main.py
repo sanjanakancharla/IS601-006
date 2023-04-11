@@ -44,7 +44,7 @@ def create_app(config_filename=''):
             try:
                 print("get companies")
                 # note this triggers for GET and POST
-                result = DB.selectAll("SELECT id, name FROM IS601_MP3_Companies")
+                result = DB.selectAll("SELECT id, name FROM IS601_MP2_Companies")
                 if result.status:
                     return result.rows or []
             except Exception as e:
@@ -65,4 +65,4 @@ app = create_app()
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
+    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 3456)))
