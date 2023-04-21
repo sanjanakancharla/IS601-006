@@ -1,6 +1,6 @@
 from flask import Blueprint, redirect, request, render_template, url_for, flash
 
-from sql.db import DB
+from sqll.db import DB
 sample = Blueprint('sample', __name__, url_prefix='/sample')
 
 

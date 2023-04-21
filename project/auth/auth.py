@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, flash, redirect, url_for,current_app, session
 from auth.forms import LoginForm, ProfileForm, RegisterForm
 from accounts.accounts import get_or_create_account
-from sql.db import DB
+from sqll.db import DB
 
 from flask_login import login_user, login_required, logout_user, current_user
 from auth.models import User

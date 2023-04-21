@@ -1,4 +1,4 @@
-from sql.db import DB
+from sqll.db import DB
 from flask import flash
 def get_or_create_account(user_id):
     account = {"id":-1, "balance":0}

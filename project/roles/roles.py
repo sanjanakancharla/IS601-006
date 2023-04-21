@@ -1,5 +1,5 @@
 from flask import Blueprint, flash, render_template, request, redirect, url_for
-from sql.db import DB
+from sqll.db import DB
 from roles.forms import RoleForm
 from werkzeug.datastructures import MultiDict
 from roles.permissions import admin_permission

@@ -41,8 +41,7 @@ def create_app(config_filename=''):
         app.register_blueprint(auth)
         from roles.roles import roles
         app.register_blueprint(roles)
-        from game.game import game
-        app.register_blueprint(game)
+        
         from shop.shop import shop
         app.register_blueprint(shop)
         # load the extension
@@ -60,7 +59,7 @@ def create_app(config_filename=''):
                 import jsons
                 return jsons.loads(session["user"], User)
             # failsafe if we don't have a "user" key in session
-            from sql.db import DB
+            from sqll.db import DB
             print("loading user from DB") # note: we'd lose roles here since it makes a new user object without a roles query
             try:
                 result = DB.selectOne("SELECT id, email FROM IS601_Users WHERE id = %s", user_id)
@@ -88,7 +87,7 @@ def create_app(config_filename=''):
         # this avoids sleeping queries
         @app.teardown_request 
         def after_request_cleanup(ctx):
-            from sql.db import DB
+            from sqll.db import DB
             DB.close()
         return app
 
@@ -99,4 +98,4 @@ app = create_app()
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
+    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 6333)))
