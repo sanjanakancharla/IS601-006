@@ -15,9 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DB_URL: ${{secrets.DB_URL}}
-      PORT: 8080
+      PORT: 3306
       # change to the project directory you're deploying
-      WORKING_DIRECTORY: project
+      WORKING_DIRECTORY: Project
     defaults:
       run:
           working-directory: ${{env.WORKING_DIRECTORY}}
