@@ -42,7 +42,7 @@
 <tr><td> <em>Caption:</em> <p>The NeedsCleaningException is handled where it prompts the user to type the word<br>&#39;clean&#39; to clean the machine; other words are ignored. Displays a message whether<br>or not the machine was cleaned.<br></p>
 </td></tr>
 <tr><td><img width="768px" src="https://user-images.githubusercontent.com/38933770/228137637-be9eb1b7-9a8c-4fad-9329-f3a458879357.jpeg"/></td></tr>
-<tr><td> <em>Caption:</em> <p>The Various ExceededRemainingChoicesExceptions are handled with proper user feedback and continued program flow.<br>Shows the stage/category where the choice limit was exceeded. Moves the user to<br>the next stage/category.<br></p>
+<tr><td> <em>Caption:</em> <p>The various InvalidChoiceExceptions are handled with proper user feedback and continued program flow.<br>Show the stage/category that the choice was invalid in.<br></p>
 </td></tr>
 <tr><td><img width="768px" src="https://user-images.githubusercontent.com/38933770/228137883-9eb2d9c3-db66-4da0-ba75-d3d151a16a0b.jpeg"/></td></tr>
 <tr><td> <em>Caption:</em> <p> The various ExceededRemainingChoicesExceptions are handled with proper user feedback and continued program<br>flow. Shows the stage/category where the choice limit was exceeded. Moves the user<br>to the next stage/category.<br></p>
