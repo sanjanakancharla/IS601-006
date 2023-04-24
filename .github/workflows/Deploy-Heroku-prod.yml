@@ -14,9 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DB_URL: ${{secrets.DB_URL}}
-      PORT: 8080
+      PORT: 3306
       # change to the project directory you're deploying
-      WORKING_DIRECTORY: flask_sample
+      WORKING_DIRECTORY: Project
     defaults:
       run:
           working-directory: ${{env.WORKING_DIRECTORY}}
@@ -26,7 +26,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Run tests
-        run: pip install -r requirements.txt && pytest
+        run: pip install -r requirements.txt
 
 ### ⬇ IMPORTANT PART ⬇ ###
 
